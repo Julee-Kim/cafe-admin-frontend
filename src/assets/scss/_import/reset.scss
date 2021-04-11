@@ -1,0 +1,60 @@
+@charset 'utf-8';
+@import '@/assets/scss/_import/variables.scss';
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&subset=korean');
+
+/* reset */
+html { font-size: 14px; } 
+html, body {
+	position: relative;
+	font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+	// font-size: 16px;
+	color: $text-color !important;
+}
+button, input, select, textarea,
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+	font-size: 1rem;
+}
+input::placeholder,
+textarea::placeholder,
+select::placeholder { color: #d4d4d4 !important; }
+select { border: 1px solid #ced4da; }
+ul, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+img { width: 100%; }
+video:focus,
+audio:focus { outline: none; }
+
+/* Anchor */
+a {
+	color: $text-color;
+	text-decoration: none;
+
+	&:hover,
+	&:active,
+	&:focus {
+		text-decoration: none;
+		color: $text-color;
+	}
+}
+
+strong {
+	font-weight: 700;
+	color: $primary-purple;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0 !important;
+  border: none;
+
+  legend {
+    font-size: 0;
+    text-indent: -9999px;
+  }
+}

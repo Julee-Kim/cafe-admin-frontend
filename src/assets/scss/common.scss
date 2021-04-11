@@ -1,0 +1,66 @@
+@charset 'utf-8';
+
+.inner { padding: 1rem 0; }
+.card {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: $bg-purple;
+  border-radius: .428rem;
+  box-shadow: 0 4px 24px 0 rgba(34,41,47,.24);
+  overflow: hidden;
+
+  .card_header {
+    padding: .8rem 0 2rem;
+
+    .card_title {
+      font-size: 1.285rem;
+      font-weight: 500;
+    }
+  }
+}
+.text_purple { color: $primary-purple; }
+
+.icon_txt { padding-left: 1rem; }
+
+.ml_5 { margin-left: 5px; }
+
+hr {
+  margin: 1.5rem 0;
+  border-color: transparent;
+}
+
+/* Auth styles */
+.auth {
+  height: 100vh;
+  min-height: 700px;
+
+  .auth_form_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 500px;
+    height: calc(100% - 120px);
+
+    .row {
+      padding: 3rem 3rem 3.5rem;
+      width: 100%;
+      background-color: $bg-purple;
+      border-radius: .35rem;
+    
+      .welcome {
+        margin-bottom: 2rem;
+        font-size: 1.7rem;
+        color: #d0d2d6;
+      }
+
+      .link_text {
+        padding-left: 5px;
+        color: $primary-purple;
+      }
+    }
+  }
+}
+
+/* Bootstrap-vue style */
+.toast-header strong { color: inherit; }

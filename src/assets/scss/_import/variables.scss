@@ -1,0 +1,36 @@
+/* color */
+$text-color: #d0d2d6;
+$border-color: #404656;
+
+// $bg: #161b32;
+$primary-purple: #7367f0;
+$dark-purple: #161b32;
+$red: #ea5455;
+$gray: #b4b7bd;
+$dark-gray: #82868b;
+$navy: #343d55;
+
+$bg-purple: #283046;
+
+$table-border: 1px solid #dfe5ed;
+
+@mixin clearfix () {
+	&::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+
+@mixin ellipsis () {
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+}
+
+@mixin transform ($transforms) {
+	-webkit-transform: $transforms;
+	-moz-transform: $transforms;
+	-ms-transform: $transforms;
+	transform: $transforms;
+}

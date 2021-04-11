@@ -1,0 +1,50 @@
+@charset 'utf-8';
+@import '@/assets/scss/_import/variables.scss';
+
+.btn_wrap {
+	padding-bottom: .6rem;
+	text-align: right;
+}
+
+.btn--full { width: 100% !important; }
+
+.btn {
+	padding: .537rem 1.5rem;
+	color: #fff;
+	background-color: $primary-purple;
+	border-color: $primary-purple;
+	border-radius: .358rem;
+
+  &:hover {
+		color: #fff;
+    background-color: $primary-purple !important;
+		border-color: $primary-purple;
+    box-shadow: 0 8px 25px -8px $primary-purple;
+  }
+  
+	&:active,
+	&:focus {
+		color: #fff;
+		background-color: $primary-purple;
+		border-color: $primary-purple;
+	}
+
+	&.no_shadow { box-shadow: none; }
+
+	&.btn_red {
+		background-color: $red;
+		border-color: $red;
+
+		&:hover {
+			background-color: $red !important;
+			border-color: $red;
+			box-shadow: 0 8px 25px -8px $red;
+		}
+		
+		&:active,
+		&:focus {
+			background-color: $red;
+			border-color: $red;
+		}
+	}
+}

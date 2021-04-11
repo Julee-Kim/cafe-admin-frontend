@@ -1,0 +1,34 @@
+@charset 'utf-8';
+@import '@/assets/scss/_import/variables.scss';
+
+.table_wrap {
+  overflow-x: auto; 
+
+  .table {
+    min-width: 676px;
+    border-bottom: 1px solid #3b4253;
+
+    &.table_middle tbody th,
+    &.table_middle tbody td { vertical-align: middle; }
+
+    thead tr th {
+      padding: .72rem;
+      color: $text-color;
+      border-color: #3b4253;
+      background-color: $navy;
+    }
+    
+    tbody tr {
+      outline: none;
+
+       td {
+        padding: 1rem .72rem;
+        color: $text-color;
+      }
+    }
+
+    th, td {
+      text-align: center;
+    }
+  }
+}
