@@ -18,10 +18,12 @@
           <chevron-right-icon size="16" class="icon_arrow_right"></chevron-right-icon>
         </a>
         <b-collapse id="navCollapse" class="nav_collapse">
-          <b-nav-item href="#">
-            <circle-icon size="12"></circle-icon>
-            <span class="icon_txt">eCommerce</span>
-          </b-nav-item>
+          <li class="nav-item">
+            <router-link to="/analysis" class="nav-link">
+              <circle-icon size="12"></circle-icon>
+              <span class="icon_txt">소비분석</span>
+            </router-link>
+          </li>
           <b-nav-item href="#">
             <circle-icon size="12"></circle-icon>
             <span class="icon_txt">Analytics</span>
