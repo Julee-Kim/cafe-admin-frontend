@@ -20,16 +20,11 @@ export default {
   },
   data() {
     return {
-      colors: ['#7367f0', '#00cfe8','#ea5455', '#28c76f','#ff9f43'],
+      colors: ['#437e94', '#4d4e96','#7f474f', '#457a5e', '#8e6a4d'],
       options: {
         legend: {
           display: false
         },
-        elements: {
-          arc: {
-            borderWidth: 0
-          }
-        }
       }
     }
   }

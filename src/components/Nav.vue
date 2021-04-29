@@ -2,8 +2,8 @@
   <div class="nav" :class="show ? 'show' : ''">
     <div class="nav_header">
       <b-navbar-brand href="/">
-        <img src="@/assets/images/logo.png" alt="vue logo">
-        <span>Admin</span>
+        <!-- <img src="@/assets/images/logo.png" alt="vue logo"> -->
+        <span>Mycafe</span>
       </b-navbar-brand>
       <button type="button" class="btn_close_nav" @click="toggleNav">
         <x-icon size="24"></x-icon>
@@ -18,16 +18,18 @@
           <chevron-right-icon size="16" class="icon_arrow_right"></chevron-right-icon>
         </a>
         <b-collapse id="navCollapse" class="nav_collapse">
-          <li class="nav-item">
-            <router-link to="/analysis" class="nav-link">
+          <li class="nav-item" @click="toggleNav">
+            <router-link to="/sales" class="nav-link">
               <circle-icon size="12"></circle-icon>
-              <span class="icon_txt">소비분석</span>
+              <span class="icon_txt">매출 통계</span>
             </router-link>
           </li>
-          <b-nav-item href="#">
-            <circle-icon size="12"></circle-icon>
-            <span class="icon_txt">Analytics</span>
-          </b-nav-item>
+          <li class="nav-item" @click="toggleNav">
+            <router-link to="/analysis" class="nav-link">
+              <circle-icon size="12"></circle-icon>
+              <span class="icon_txt">소비 분석</span>
+            </router-link>
+          </li>
         </b-collapse>
       </li>
       <li @click="toggleNav">
@@ -88,6 +90,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
+
 .nav {
   position: fixed;
   display: block;
@@ -95,7 +99,7 @@ export default {
   padding: 15px;
   z-index: 100;
   font-size: 1.1rem;
-  background-color: $bg-purple;
+  background-color: $bg-navy;
 
   .nav_header {
     display: flex;
@@ -103,15 +107,12 @@ export default {
 
     .navbar-brand {
       margin-right: auto;
+      padding: 0 .5rem;
 
       img { width: 35px; }
       span {
-        display: inline-block;
-        vertical-align: middle;
-        padding-left: 9px;
-        font-size: 22px;
-        font-weight: 600;
-        color: #00c086;
+        font-family: "Dancing Script", cursive;
+        font-size: 2rem;
       }
     }
     .btn_close_nav {

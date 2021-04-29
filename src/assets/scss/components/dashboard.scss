@@ -1,0 +1,137 @@
+@charset 'utf-8';
+
+// 매출 통계
+.sales {
+  .card {
+    padding: 0;
+    border-radius: .228rem;
+
+    .card_title {
+      padding: 1.3rem 1.5rem;
+      color: #fff;
+      border-left: 3px solid #bdbdbd;
+      border-bottom: 1px solid #3b4253;
+    }
+    .card_body {
+      padding: 1.3rem 1.5rem;
+
+      &.card_body_year {
+        background-color: $bg-purple;
+
+        strong { color: $primary-purple; }
+      }
+
+      &.card_body_today {
+        background-color: $bg-orange;
+
+        strong { color: $orange; }
+      }
+
+      &.card_body_yesterday {
+        background-color: $bg-green;
+
+        strong { color: $green; }
+      }
+
+      &.card_body_monthly {
+        padding: 2rem 1.7rem;
+      }
+
+      &.card_body_ranking {
+        padding: 0 0 9px;
+
+        .table {
+          th, td {
+            text-align: center;
+            color: $gray;
+          }
+          th {
+            font-weight: 600;;
+            color: $text-color;
+            background-color: $navy;
+          }
+        }
+      }
+
+      strong {
+        font-size: 1.714rem;
+        color: $text-color;
+      }
+    }
+  }
+}
+
+// 소비 분석
+.analysis {
+  .card_wrap {
+    margin-bottom: 2rem;
+  }
+  .card {
+    padding: 1rem 2rem 0;
+    height: 100%;
+  }
+  .card_header {
+    display: inline-flex;
+    align-items: center;
+
+    .card_title { padding-left: 1rem; }
+
+    .ico_wrap {
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.ico_wrap--user {
+        color: $primary-purple;
+        background-color: $bg-purple;
+      }
+
+      &.ico_wrap--gender {
+        color: $orange;
+        background-color: $bg-orange;
+      }
+
+      &.ico_wrap--category {
+        color: $green;
+        background-color: $bg-green;
+      }
+
+      &.ico_wrap--sales {
+        color: $red;
+        background-color: $bg-red;
+      }
+    }
+  }
+
+  .card_body {
+    padding: 0 1.5rem .7rem;
+
+    .chart_wrap { padding: 0 1.5rem; }
+  }
+  .card_body_sales {
+    padding: 2rem 1rem 3rem;
+  }
+}
+
+.search_year {
+  width: 100px;
+  color: #d1d4da !important;
+}
+
+@media (max-width: 767px) {
+  .analysis .card {
+    padding-bottom: .5rem;
+
+    .card_body {
+      padding: 0;
+  
+      .chart_wrap { padding: 0 2.5rem; }
+    }
+  }
+
+  .card_body_sales,
+  .card_body_monthly  { padding: 1rem 0 !important; }
+}
