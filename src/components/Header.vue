@@ -73,7 +73,7 @@ header {
   .navbar {
     padding: .5rem 1rem .5rem 1.5rem;
     border-radius: 0.428rem;
-    background-color: $bg-purple;
+    background-color: $bg-navy;
 
     .navbar-toggler {
       border: 0;
@@ -109,7 +109,7 @@ header {
         .dropdown-menu {
           position: absolute;
           top: 53px;
-          background-color: $bg-purple;
+          background-color: $bg-navy;
           box-shadow: 0 4px 24px 0 rgba(0,0,0,.24);
 
           .dropdown-item {

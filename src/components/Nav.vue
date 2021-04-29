@@ -19,15 +19,17 @@
         </a>
         <b-collapse id="navCollapse" class="nav_collapse">
           <li class="nav-item">
-            <router-link to="/analysis" class="nav-link">
+            <router-link to="/sales" class="nav-link">
               <circle-icon size="12"></circle-icon>
-              <span class="icon_txt">소비분석</span>
+              <span class="icon_txt">매출 통계</span>
             </router-link>
           </li>
-          <b-nav-item href="#">
-            <circle-icon size="12"></circle-icon>
-            <span class="icon_txt">Analytics</span>
-          </b-nav-item>
+          <li class="nav-item">
+            <router-link to="/analysis" class="nav-link">
+              <circle-icon size="12"></circle-icon>
+              <span class="icon_txt">소비 분석</span>
+            </router-link>
+          </li>
         </b-collapse>
       </li>
       <li @click="toggleNav">
@@ -95,7 +97,7 @@ export default {
   padding: 15px;
   z-index: 100;
   font-size: 1.1rem;
-  background-color: $bg-purple;
+  background-color: $bg-navy;
 
   .nav_header {
     display: flex;
