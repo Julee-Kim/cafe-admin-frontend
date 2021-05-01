@@ -39,9 +39,11 @@
                       v-validate="'required'"
                     >
                       <b-form-select-option value="">카테고리 선택</b-form-select-option>
-                      <b-form-select-option value="coffee">Coffee</b-form-select-option>
-                      <b-form-select-option value="tea">Tea</b-form-select-option>
-                      <b-form-select-option value="cake">Cake</b-form-select-option>
+                      <b-form-select-option value="Espresso">Espresso</b-form-select-option>
+                      <b-form-select-option value="Frappuccino">Frappuccino</b-form-select-option>
+                      <b-form-select-option value="Blended">Blended</b-form-select-option>
+                      <b-form-select-option value="Tea">Tea</b-form-select-option>
+                      <b-form-select-option value="Cake">Cake</b-form-select-option>
                     </b-form-select>
                     <span class="error_txt">{{ errors[0] }}</span>
                   </b-form-group>
@@ -116,6 +118,25 @@
                     v-validate="'required'"
                     rows="1"
                   ></b-form-textarea>
+                  <span class="error_txt">{{ errors[0] }}</span>
+                </b-form-group>
+              </ValidationProvider>
+            </div>
+          </b-row>
+          <b-row>
+            <div class="col-12 col-md-6 col-xl-4">
+              <ValidationProvider rules="required|integer" v-slot="{ errors }">
+                <b-form-group
+                  label="가격"
+                  label-for="price"
+                >
+                  <b-form-input
+                    name="price"
+                    id="price"
+                    :class="{'error': errors[0]}"
+                    v-model="productForm.price"
+                    v-validate="'required|integer'"
+                  ></b-form-input>
                   <span class="error_txt">{{ errors[0] }}</span>
                 </b-form-group>
               </ValidationProvider>
@@ -235,7 +256,7 @@
             <div class="col-6 col-md-6 col-xl-4">
               <ValidationProvider rules="required|integer" v-slot="{ errors }">
                 <b-form-group
-                  label="1회 제공량 (ml)"
+                  label="1회 제공량"
                   label-for="standard"
                 >
                   <b-form-input

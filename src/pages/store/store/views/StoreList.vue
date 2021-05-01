@@ -12,7 +12,7 @@
               <b-form-select
                 id="sido"
                 class="form-control"
-                v-model="searchForm.sido"
+                v-model="selectedSido"
               >
                 <b-form-select-option value="">전체</b-form-select-option>
                 <template v-for="(item, index) in sidoOptions">
@@ -34,7 +34,7 @@
                 :disabled="!searchForm.sido"
               >
                 <b-form-select-option value="">구/군 선택</b-form-select-option>
-                <template v-for="(item, index) in searchForm.sido.gugun">
+                <template v-for="(item, index) in gugunOptions">
                   <b-form-select-option :key="index" :value="item.value">{{ item.text }}</b-form-select-option>
                 </template>
               </b-form-select>
@@ -53,7 +53,7 @@
             </b-form-group>
           </div>
           <div class="col-12 col-md-2 btn_search_wrap">
-            <b-button>검색</b-button>
+            <b-button @click="searchList">검색</b-button>
           </div>
         </div>
       </b-form>
@@ -102,6 +102,8 @@ export default {
   data() {
     return {
       sidoOptions: [],
+      selectedSido: '',
+      gugunOptions: [],
       searchForm: {
         store: '',
         sido: '',
@@ -119,8 +121,10 @@ export default {
     }
   },
   watch: {
-    'searchForm.sido'() {
-      if (this.searchForm.gugun) { this.searchForm.gugun = ''}
+    selectedSido(item) {
+      this.searchForm.sido = item.sido
+      this.searchForm.gugun = ''
+      this.gugunOptions = item.gugun
     }
   },
   methods: {
@@ -139,6 +143,7 @@ export default {
     },
     async getStoreList() {
       this.$store.commit('showLoader')  
+
       try {
         const result = await storeAPI.getStoreList(this.searchForm)
         this.lists = result.data

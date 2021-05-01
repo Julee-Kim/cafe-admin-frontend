@@ -17,7 +17,8 @@ export const commonScript = {
         sodium: '',
         sugars: '',
         caffeine: '',
-        img: ''
+        img: '',
+        price: ''
       }
     }
   },

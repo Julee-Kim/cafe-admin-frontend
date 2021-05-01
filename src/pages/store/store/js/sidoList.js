@@ -24,10 +24,10 @@ export const sidoList = [
     ]
   },
   {
-    sido: '강원',
+    sido: '광주',
     gugun: [
-      { value: '강릉시', text: '강릉시' },
-      { value: '속초시', text: '속초시' }
+      { value: '남구', text: '남구' },
+      { value: '동구', text: '동구' }
     ]
   },
   {

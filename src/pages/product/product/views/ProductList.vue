@@ -15,9 +15,11 @@
                 v-model="searchForm.category"
               >
                 <b-form-select-option value="">전체</b-form-select-option>
-                <b-form-select-option value="coffee">Coffee</b-form-select-option>
-                <b-form-select-option value="tea">Tea</b-form-select-option>
-                <b-form-select-option value="cake">Cake</b-form-select-option>
+                <b-form-select-option value="Espresso">Espresso</b-form-select-option>
+                <b-form-select-option value="Frappuccino">Frappuccino</b-form-select-option>
+                <b-form-select-option value="Blended">Blended</b-form-select-option>
+                <b-form-select-option value="Tea">Tea</b-form-select-option>
+                <b-form-select-option value="Cake">Cake</b-form-select-option>
               </b-form-select>
             </b-form-group>
           </div>
@@ -92,13 +94,14 @@ export default {
       searchForm: {
         category: '',
         product_name: '',
-        perPage: 4,
+        perPage: 10,
         page: 1,
       },
       fields: [
         { key: 'category', label: '카테고리' },
         { key: 'img', label:  '이미지' },
-        { key: 'product_name', label: '상품명' }
+        { key: 'product_name', label: '상품명' },
+        { key: 'price', label:  'price' },
       ],
       lists: {}
     }
