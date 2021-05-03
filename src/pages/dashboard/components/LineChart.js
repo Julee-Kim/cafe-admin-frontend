@@ -31,7 +31,14 @@ export default {
         scales: {
           yAxes: [{
             ticks: {
-              fontColor: '#989ba0'
+              fontColor: '#989ba0',
+              beginAtZero: true,
+              userCallback: function(value) {
+                value = value.toString()
+                value = value.split(/(?=(?:...)*$)/)
+                value = value.join(',')
+                return value
+              }
             },
           }],
           xAxes: [{
@@ -39,6 +46,18 @@ export default {
               fontColor: '#989ba0'
             },
           }]
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem, data) {
+              var value = data.datasets[0].data[tooltipItem.index]
+              if(parseInt(value) >= 1000){
+                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              } else {
+                return value
+              }
+            }
+          }
         }
       }
     }

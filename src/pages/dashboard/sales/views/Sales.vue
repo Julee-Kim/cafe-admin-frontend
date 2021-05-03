@@ -46,8 +46,7 @@
             <h3 class="card_title">월별 매출</h3>
             <div class="card_body card_body_monthly">
               <bar-chart
-                v-if="isLoadingBarChart"
-                :isLoadingBarChart="isLoadingBarChart"
+                v-if="isLoading"
                 :labels="monthlyLabels"
                 :chart-data="monthlyData"
               ></bar-chart>
@@ -104,7 +103,7 @@ export default {
       totalYear: 0,
       totalToday: 0,
       totalYesterday: 0,
-      isLoadingBarChart: false,
+      isLoading: false,
       monthlyLabels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
       monthlyData: null,
       fields: [
@@ -125,7 +124,7 @@ export default {
       this.totalYear = 0
       this.totalToday = 0
       this.totalYesterday = 0
-      this.isLoadingBarChart = false
+      this.isLoading = false
     },
     makeData(data) {
       const today = moment().format('YYYY-MM-DD');
@@ -197,12 +196,12 @@ export default {
       }
 
       this.monthlyData = monthlyDataArr;
-      this.isLoadingBarChart = true;
+      this.isLoading = true;
 
       this.$store.commit('hideLoader')
     },
     async getSaleList() {
-      if(this.isLoadingBarChart) {
+      if(this.isLoading) {
         this.initData()
       }
       this.$store.commit('showLoader')  
