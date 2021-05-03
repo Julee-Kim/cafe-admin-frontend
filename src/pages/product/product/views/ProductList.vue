@@ -64,6 +64,9 @@
               class="thumbnail_product"  
             >
           </template>
+          <template #cell(price)="data">
+            {{ data.item.price | numberWithComma }}
+          </template>
 
           <template #empty="scope">데이터가 없습니다.</template>
         </b-table>
