@@ -16,7 +16,10 @@
                   v-model="productForm.img"
                   v-validate="'required'">
                 <div class="img_dropzone_wrap" :class="{'error': errors[0]}">
-                  <image-dropzone @setImageUrl="setImageUrl"></image-dropzone>
+                  <image-dropzone 
+                    :imgUrl="productForm.img"
+                    :thumbnailName="thumbnailName"
+                    @setImageUrl="setImageUrl"></image-dropzone>
                 </div>  
                 <span class="error_txt">{{ errors[0] }}</span>
               </ValidationProvider>
@@ -303,7 +306,8 @@ export default {
   },
   data() {
     return {
-      productId: ''
+      productId: '',
+      thumbnailName: '',
     }
   },
   methods: {
@@ -328,6 +332,9 @@ export default {
         this.productForm.caffeine = data.caffeine
         this.productForm.img = data.img
         this.productForm.price = data.price
+        let arr = data.img.split('/')
+        this.thumbnailName = arr[arr.length - 1]
+
         this.$store.commit('hideLoader')
       } catch (err) {
         console.log(err)
