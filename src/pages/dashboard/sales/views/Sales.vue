@@ -24,19 +24,19 @@
           <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="card">
               <h3 class="card_title">연 매출</h3>
-              <div class="card_body card_body_year"><strong>1500</strong></div>
+              <div class="card_body card_body_year"><strong>{{ totalYear | numberWithComma }}</strong></div>
             </div>
           </div>  
           <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="card">
               <h3 class="card_title">오늘 매출</h3>
-              <div class="card_body card_body_today"><strong>1500</strong></div>
+              <div class="card_body card_body_today"><strong>{{ totalToday | numberWithComma }}</strong></div>
             </div>
           </div>  
           <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="card">
               <h3 class="card_title">어제 매출</h3>
-              <div class="card_body card_body_yesterday"><strong>1500</strong></div>
+              <div class="card_body card_body_yesterday"><strong>{{ totalYesterday | numberWithComma }}</strong></div>
             </div>
           </div>  
         </div>
@@ -45,7 +45,12 @@
           <div class="card">
             <h3 class="card_title">월별 매출</h3>
             <div class="card_body card_body_monthly">
-              <bar-chart :labels="monthlyLabels" :chart-data="monthlyData"></bar-chart>
+              <bar-chart
+                v-if="isLoadingBarChart"
+                :isLoadingBarChart="isLoadingBarChart"
+                :labels="monthlyLabels"
+                :chart-data="monthlyData"
+              ></bar-chart>
             </div>
           </div>
         </div>
@@ -63,11 +68,11 @@
               :items="rankingStores"
               show-empty
             >
-              <template #cell(no)="data">
-                <span v-if="data.index === 0"><award-icon color="#b5b500"></award-icon></span>
-                <span v-if="data.index === 1"><award-icon color="#8a8a8a"></award-icon></span>
-                <span v-if="data.index === 2"><award-icon color="#7d3b00"></award-icon></span>
-                <span v-if="data.index !== 0 && data.index !== 1 && data.index !== 2">{{ data.index + 1 }}</span>
+              <template #cell(ranking)="data">
+                {{ data.index + 1 }}
+              </template>
+              <template #cell(totalSales)="data">
+                {{ data.item.totalSales | numberWithComma }}
               </template>
               <template #empty="scope">데이터가 없습니다.</template>
             </b-table>
@@ -79,63 +84,136 @@
 </template>
 
 <script>
-import { AwardIcon } from 'vue-feather-icons';
-import BarChart from '../../components/BarChart'
+import moment from 'moment';
+import BarChart from '../../components/BarChart';
+import orderAPI from '@/api/order';
 
 export default {
   name: 'Sales',
   components: {
     BarChart,
-    AwardIcon,
   },
   mounted() {},
   created() {
     this.$eventBus.$emit('pageTitle', '매출 통계')
+    this.getSaleList()
   },
   data() {
     return {
       year: 2021,
+      totalYear: 0,
+      totalToday: 0,
+      totalYesterday: 0,
+      isLoadingBarChart: false,
       monthlyLabels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-      monthlyData: [16,23,36,23,17,21,13,24,39,28,17,12],
+      monthlyData: null,
       fields: [
-        { key: 'no', label: 'No.' },
+        { key: 'ranking', label: 'No.' },
         { key: 'storeName', label: '지점명' },
         { key: 'totalSales', label: '매출액' }
       ],
-      rankingStores: [
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-        {storeName: '테헤란로지점', totalSales: 20000},
-      ]
+      rankingStores: []
+    }
+  },
+  watch: {
+    year() {
+      this.getSaleList()
     }
   },
   methods: {
-    fillData () {
-      this.datacollection = {
-        labels: [this.getRandomInt(), this.getRandomInt()],
-        datasets: [
-          {
-            label: 'Data One',
-            backgroundColor: '#f87979',
-            data: [this.getRandomInt(), this.getRandomInt()]
-          }, {
-            label: 'Data One',
-            backgroundColor: '#f87979',
-            data: [this.getRandomInt(), this.getRandomInt()]
-          }
-        ]
-      }
+    initData() {
+      this.totalYear = 0
+      this.totalToday = 0
+      this.totalYesterday = 0
+      this.isLoadingBarChart = false
     },
+    makeData(data) {
+      const today = moment().format('YYYY-MM-DD');
+      const yesterDay = moment().subtract(1, 'day').format('YYYY-MM-DD');
+      let stores = {}
+      let monthlyDataObj = {};
+
+      let i;
+      for(i = 0; i < data.length; i++) {
+        const item = data[i];
+        const orderDate = moment(item.create_date).format('YYYY-MM-DD');
+
+        // 연매출
+        this.totalYear += item.orderPrice;
+
+        // 오늘 매출
+        if(moment(today).isSame(orderDate)) {
+          this.totalToday += item.orderPrice;
+        }
+
+        // 어제 매출
+        if(moment(yesterDay).isSame(orderDate)) {
+          this.totalYesterday += item.orderPrice;
+        }
+
+        // 지점 매출 순위
+        if(!stores[item.storeName]) {
+          // stores[item.storeName] = {}
+          stores[item.storeName] = item.orderPrice
+        } else {
+          stores[item.storeName] += item.orderPrice
+        }
+
+        // 월별 매출
+        const orderMonth = moment(item.create_date).format('MM')
+        if(!monthlyDataObj[orderMonth]) {
+          monthlyDataObj[orderMonth] = item.orderPrice
+        } else {
+          monthlyDataObj[orderMonth] += item.orderPrice
+        }
+      }      
+
+      // 지점 매출 순위 매출 높은 순으로
+      let rankingArr = [];
+      let key;
+      for(key in stores) {
+        rankingArr.push({
+          storeName: key,
+          totalSales: stores[key]
+        })
+      }
+      rankingArr.sort(function (a, b) {
+        if (a.totalSales > b.totalSales) {
+          return 1;
+        }
+        if (a.totalSales < b.totalSales) {
+          return -1;
+        }
+        return 0;
+      });
+
+      this.rankingStores = rankingArr.reverse();
+
+
+      // 월별 매출 배열로
+      let monthlyDataArr = [];
+      for(key in monthlyDataObj) {
+        monthlyDataArr.push(monthlyDataObj[key])
+      }
+
+      this.monthlyData = monthlyDataArr;
+      this.isLoadingBarChart = true;
+
+      this.$store.commit('hideLoader')
+    },
+    async getSaleList() {
+      if(this.isLoadingBarChart) {
+        this.initData()
+      }
+      this.$store.commit('showLoader')  
+
+      try {
+        const result = await orderAPI.getSaleList({year: this.year})
+        this.makeData(result.data.lists)
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
 }
 </script>
