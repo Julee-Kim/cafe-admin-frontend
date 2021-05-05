@@ -39,7 +39,8 @@ hr {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     height: calc(100% - 120px);
 
     .row {

@@ -1,11 +1,15 @@
 <template>
   <div class="auth">
-    <auth-header></auth-header>
     <div class="auth_form_wrap">
       <b-row>
         <b-col class="col_right">
+          <div class="brand_name_wrap text-right">
+            <h1>
+              <span class="brand_name">Mycafe</span>
+            </h1>
+          </div>
           <h2 class="welcome">Create an account!</h2>
-          <div class="form_wrap">
+            <div class="form_wrap">
             <ValidationObserver ref="register">
               <b-form @submit.prevent>
                 <ValidationProvider rules="required" v-slot="{ errors }">
@@ -68,11 +72,9 @@
 
 <script>
 import authAPI from '@/api/auth'
-import AuthHeader from '../../components/AuthHeader'
 
 export default {
   name: 'Register',
-  components: { AuthHeader },
   created () {
 		// 로그인한 상태면 메인으로 이동
 		const token = localStorage.token
@@ -109,8 +111,13 @@ export default {
 
       authAPI.postRegister(this.registerForm)
         .then(res => {
-          this.$router.push('/login')
-          this.$store.commit('hideLoader')
+          if(res.data.success) {
+            this.$router.push('/login')
+            this.$store.commit('hideLoader')
+          } else {
+            this.$store.commit('hideLoader')
+            alert(res.data.err)
+          }
         })
         .catch(err => console.log(err))
     }
@@ -118,4 +125,14 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.brand_name_wrap {
+  padding: 0 0 2.5rem;
+
+  .brand_name {
+    font-family: "Dancing Script", cursive;
+    font-size: 1.5rem;
+    color: $green;
+  }
+}
+</style>

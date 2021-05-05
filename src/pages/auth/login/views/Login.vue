@@ -1,9 +1,13 @@
 <template>
   <div class="auth">
-    <auth-header></auth-header>
     <div class="auth_form_wrap">
       <b-row>
         <b-col class="col_right">
+          <div class="brand_name_wrap text-right">
+            <h1>
+              <span class="brand_name">Mycafe</span>
+            </h1>
+          </div>
           <h2 class="welcome">Welcome to vue admin!</h2>
           <div class="form_wrap">
             <ValidationObserver ref="login">
@@ -54,12 +58,8 @@
 </template>
 
 <script>
-import authAPI from '@/api/auth'
-import AuthHeader from '../../components/AuthHeader'
-
 export default {
   name: 'Login',
-  components: { AuthHeader },
   created () {
 		// 로그인한 상태면 메인으로 이동
 		const token = localStorage.token
@@ -125,4 +125,14 @@ export default {
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.brand_name_wrap {
+  padding: 0 0 2.5rem;
+
+  .brand_name {
+    font-family: "Dancing Script", cursive;
+    font-size: 1.5rem;
+    color: $green;
+  }
+}
+</style>
