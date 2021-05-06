@@ -8,6 +8,8 @@ Vue.use(Vuex);
 
 if(process.env.NODE_ENV === 'production') {
 	axios.defaults.baseURL = 'https://my-cafe-admin.herokuapp.com'
+	axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
+	axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*'
 }
 
 axios.defaults.withCredentials = true
