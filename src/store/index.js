@@ -13,8 +13,7 @@ if(process.env.NODE_ENV === 'production') {
 axios.defaults.withCredentials = true
 
 export default new Vuex.Store({
-  // strict: process.env.NODE_ENV !== 'production',
-	strict: true,
+  strict: process.env.NODE_ENV !== 'production',
 	state: {
 		loader: false
 	},
