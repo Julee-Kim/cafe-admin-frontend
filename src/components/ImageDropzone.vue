@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import { PlusIcon } from 'vue-feather-icons'
@@ -35,7 +36,9 @@ export default {
   data() {
     return {
       dropzoneOptions: {
-        url: 'http://localhost:5000/api/products/image',
+        url: process.env.NODE_ENV === 'production'
+          ? `${axios.defaults.baseURL}/api/products/image`
+          : 'http://localhost:5000/api/products/image',
         maxFiles: 1,
         acceptedFiles: 'image/*',
         addRemoveLinks: true
