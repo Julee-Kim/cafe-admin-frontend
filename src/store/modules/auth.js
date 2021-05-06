@@ -75,7 +75,6 @@ const actions = {
 	 * 사용자 정보
   */
   async getUserInfo({ commit }) {
-    console.log('authToken => ', Vue.$cookies.get('authToken'))
     try {
       const res = await API.getUserInfo()
       if (res.data.success) {
