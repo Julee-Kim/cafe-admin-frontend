@@ -14,7 +14,9 @@ module.exports = {
       // 프록시 요청을 보낼 api의 시작 부분
       '/api': {
         // 프록시 요청을 보낼 서버의 주소
-        target: 'http://localhost:5000',
+        target: process.env.NODE_ENV === 'production'
+          ? axios.defaults.baseURL
+          : 'http://localhost:5000',
         changeOrigin: true
       },
     }
