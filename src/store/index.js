@@ -7,7 +7,7 @@ import Auth from './modules/auth'
 Vue.use(Vuex);
 
 if(process.env.NODE_ENV === 'production') {
-	axios.defaults.baseURL = 'https://my-cafe-admin.herokuapp.com/'
+	axios.defaults.baseURL = 'https://my-cafe-admin.herokuapp.com'
 }
 
 axios.defaults.withCredentials = true

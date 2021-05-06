@@ -15,7 +15,7 @@ module.exports = {
       '/api': {
         // 프록시 요청을 보낼 서버의 주소
         target: process.env.NODE_ENV === 'production'
-          ? 'https://my-cafe-admin.herokuapp.com/'
+          ? 'https://my-cafe-admin.herokuapp.com'
           : 'http://localhost:5000',
         changeOrigin: true
       },
