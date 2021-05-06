@@ -49,6 +49,8 @@ const actions = {
         // const token = Vue.$cookies.get('authToken')
         const value = document.cookie.match('(^|;) ?' + 'authToken' + '=([^;]*)(;|$)')
         const token = value ? value[2] : null
+        console.log(document.cookie)
+        console.log(token)
 
         commit('setToken', token)
       }
