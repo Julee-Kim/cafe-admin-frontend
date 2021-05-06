@@ -46,7 +46,10 @@ const actions = {
     try {
       const res = await API.postLogin(info);
       if (res.data.success) {
-        const token = Vue.$cookies.get('authToken')
+        // const token = Vue.$cookies.get('authToken')
+        const value = document.cookie.match('(^|;) ?' + 'authToken' + '=([^;]*)(;|$)')
+        const token = value ? value[2] : null
+
         commit('setToken', token)
       }
 
