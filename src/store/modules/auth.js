@@ -47,7 +47,6 @@ const actions = {
       const res = await API.postLogin(info);
       if (res.data.success) {
         const token = Vue.$cookies.get('authToken')
-        console.log('authToken => ', token)
         commit('setToken', token)
       }
 
@@ -62,7 +61,7 @@ const actions = {
   async logout({ commit }) {
     try {
       const res = await API.getLogout()
-      if (res.status === 200) {
+      if (res.data.success) {
         commit('setToken', false)
         commit('setUserInfo', false)
       }
@@ -76,9 +75,10 @@ const actions = {
 	 * 사용자 정보
   */
   async getUserInfo({ commit }) {
+    console.log('authToken => ', Vue.$cookies.get('authToken'))
     try {
       const res = await API.getUserInfo()
-      if (res.status === 200) {
+      if (res.data.success) {
         commit('setUserInfo', res.data)
       }
 
