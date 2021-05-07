@@ -2,6 +2,8 @@
  * Global methods
 */
 
+import store from '@/store'
+
 export const GlobalMethod = {
   install(Vue) {
     /**
@@ -103,6 +105,26 @@ export const GlobalMethod = {
       }
 
       option.callback()
+    },
+
+    /**
+		 * checkError
+		 *
+		 * @param { options } Object
+		 */
+    Vue.prototype.$checkError = (errorCode) => {      
+      if(errorCode === 'check-login') {
+        // init store
+        store.commit('setToken', false)
+        store.commit('setUserInfo', false)
+
+        alert('로그인이 필요한 서비스입니다.')
+        window.location.href = '/login'
+      }
+
+      if (errorCode !== 'check-login') {
+        alert(`# ERROR :: ${errorCode}`)
+      }
     }
   }
 } 

@@ -207,7 +207,7 @@ export default {
             variant: 'success'
           })
         } else {
-          this.$checkError(res.data)
+          this.$checkError(res.data.errorCode)
         }
       } catch (err) {
         console.log(err)
@@ -241,7 +241,7 @@ export default {
             })
           })
         } else {
-          this.$checkError(res.data)
+          this.$checkError(res.data.errorCode)
         }
       } catch (err) {
         console.log(err)
