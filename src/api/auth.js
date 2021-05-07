@@ -11,7 +11,7 @@ function postRegister(data) {
 
 // 로그인
 function postLogin(data) {
-  return axios.post('/api/staffs/login', data, {withCredentials: true})
+  return axios.post('/api/staffs/login', data)
 }
 
 // 사용자 정보
