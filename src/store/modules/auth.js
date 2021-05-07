@@ -2,7 +2,8 @@ import API from '../../api/auth'
 import Vue from 'vue'
 
 const state = {
-  token: localStorage.token ? localStorage.token : false,
+  token: window.localStorage.getItem('token') ? window.localStorage.getItem('token') : false,
+  // token: localStorage.token ? localStorage.token : false,
   userInfo: localStorage.userInfo ? JSON.parse(localStorage.userInfo) : {}
 }
 
@@ -20,10 +21,12 @@ const mutations = {
   setToken(state, value) {
 		if (value) {
 			state.token = value
-			localStorage.token = value
+			// localStorage.token = value
+      window.localStorage.setItem('token', value)
 		} else {
 			state.token = value
-			delete localStorage.token
+			// delete localStorage.token
+      window.localStorage.removeItem('token')
 		}
   },
   // 유저 정보 저장
@@ -47,6 +50,7 @@ const actions = {
       const res = await API.postLogin(info);
       if (res.data.success) {
         const token = window.$cookies.get('authToken')
+        console('authToken => ', token)
         commit('setToken', token)
       }
 

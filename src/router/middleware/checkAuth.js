@@ -24,7 +24,7 @@ function checkAuth(to, from, next) {
 				next()
 			}
 		} else {
-			alert('로그인이 필요한 서비스입니다.')
+			alert('-- 로그인이 필요한 서비스입니다.')
 
 			const returnUrl = encodeURIComponent(to.path)
 			router.push('/login?return=' + returnUrl).catch(() => {})
