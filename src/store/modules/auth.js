@@ -4,7 +4,8 @@ import Vue from 'vue'
 const state = {
   token: window.localStorage.getItem('token') ? window.localStorage.getItem('token') : false,
   // token: localStorage.token ? localStorage.token : false,
-  userInfo: localStorage.userInfo ? JSON.parse(localStorage.userInfo) : {}
+  // userInfo: localStorage.userInfo ? JSON.parse(localStorage.userInfo) : {}
+  userInfo: window.localStorage.getItem('userInfo') ? JSON.parse(window.localStorage.getItem('userInfo')) : {}
 }
 
 const getters = {
@@ -31,12 +32,16 @@ const mutations = {
   },
   // 유저 정보 저장
   setUserInfo(state, value) {
+    console.log('유저 정보 저장')
+    console.log('value =>', value)
 		if (value) {
       state.userInfo = value
-			localStorage.userInfo = JSON.stringify(value)
+			// localStorage.userInfo = JSON.stringify(value)
+      window.localStorage.setItem('userInfo', JSON.stringify(value))
     } else {
 			state.userInfo = value
-			delete localStorage.userInfo
+			// delete localStorage.userInfo
+      window.localStorage.removeItem('userInfo')
 		}
 	}
 }
@@ -49,7 +54,9 @@ const actions = {
     try {
       const res = await API.postLogin(info);
       if (res.data.success) {
-        const token = window.$cookies.get('authToken')
+        // const token = window.$cookies.get('authToken')
+        const value = document.cookie.match('(^|;) ?' + 'authToken' + '=([^;]*)(;|$)')
+        const token = value ? value[2] : null
         console.log('authToken => ', token)
         commit('setToken', token)
       }
@@ -81,7 +88,10 @@ const actions = {
   async getUserInfo({ commit }) {
     try {
       const res = await API.getUserInfo()
-      if (res.data.success) {
+      console.log('사용자 정보 success')
+      console.log(res)
+      if (res.status === 200) {
+        console.log(res.data)
         commit('setUserInfo', res.data)
       }
 
