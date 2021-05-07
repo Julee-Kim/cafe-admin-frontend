@@ -1,5 +1,4 @@
 import API from '../../api/auth'
-import Vue from 'vue'
 
 const state = {
   token: window.localStorage.getItem('token') ? window.localStorage.getItem('token') : false,
@@ -55,10 +54,10 @@ const actions = {
       const res = await API.postLogin(info);
       if (res.data.success) {
         // const token = window.$cookies.get('authToken')
-        const value = document.cookie.match('(^|;) ?' + 'authToken' + '=([^;]*)(;|$)')
-        const token = value ? value[2] : null
-        console.log('authToken => ', token)
-        commit('setToken', token)
+        // const value = document.cookie.match('(^|;) ?' + 'authToken' + '=([^;]*)(;|$)')
+        // const token = value ? value[2] : null
+        console.log('authToken => ', res.data.token)
+        commit('setToken', res.data.token)
       }
 
       return res;
