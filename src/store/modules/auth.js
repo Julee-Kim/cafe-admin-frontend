@@ -50,7 +50,7 @@ const actions = {
       const res = await API.postLogin(info);
       if (res.data.success) {
         const token = window.$cookies.get('authToken')
-        console('authToken => ', token)
+        console.log('authToken => ', token)
         commit('setToken', token)
       }
 

@@ -94,6 +94,7 @@ export default {
       this.$store.commit('showLoader')
 
       this.$store.dispatch('Auth/login', this.loginForm).then((res) => {
+        console.log(res)
         if(res.data.success) {
           // 시스템 사용자 정보 요청
 				  this.getUserInfo()
