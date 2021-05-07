@@ -58,11 +58,13 @@
           show-empty
         >
           <template #cell(img)="data">
-            <img
-              :src="data.item.img"
-              :alt="data.item.product_name"
-              class="thumbnail_product"  
-            >
+            <div class="thumbnail_product_wrap">
+              <img
+                :src="data.item.img"
+                :alt="data.item.product_name"
+                class="thumbnail_product"  
+              >
+            </div>
           </template>
           <template #cell(price)="data">
             {{ data.item.price | numberWithComma }}
@@ -142,9 +144,12 @@ export default {
   .table_wrap .table {
     min-width: 330px;
 
-    .thumbnail_product {
+    .thumbnail_product_wrap {
       width: 50px;
+      height: 52px;
+      background-color: $bg-purple;
       border-radius: 0.25rem;
+      overflow: hidden;
     }
   }
 }
