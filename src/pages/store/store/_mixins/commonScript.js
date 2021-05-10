@@ -25,11 +25,6 @@ export const commonScript = {
   },
   created() {
     this.sidoOptions = sidoList
-
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=983769166270a585e2bd0260628e4a74&autoload=false';
-    document.head.appendChild(script);
   },
   watch: {
     'storeForm.zonecode'(value) {
